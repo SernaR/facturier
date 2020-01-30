@@ -16,7 +16,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/inscription", name="security_registration")
+    * @Route("/", name="security_homepage")
+    */
+   public function indexAction(Request $request)
+   {
+       return $this->redirectToRoute('user_page');
+   }
+
+    /**
+     * @Route("/inscription", name="registration")
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
         $user = new User();

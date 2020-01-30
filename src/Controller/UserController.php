@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * route user****************
+ * @Route("user")
  * secu**************************
  */
 class UserController extends AbstractController
