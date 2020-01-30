@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+{% block page %}
+	<h1>Tableau de bord</h1>
+{% endblock %}
+{% block body %}
+<div class="row mt-3">
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Devis</h2>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Création</th>
+							<th>Envoi</th>
+							<th>Annuler</th>
+							<th>Valider</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for devi in devis %}
+						<tr>
+							<td>{{ devi.client.nom }}</td>
+
+							<td>{{  devi.date|date("d/m/Y") }}</td>
+							<td>{{ devi.envoi| date("d/m/Y")}}</td>
+							<td><a href="{{ path('quotation_cancel', { 'id':  devi.id }) }}"><i class="fas fa-user-minus"></i></a></td>
+							<td><a href="{{ path('quotation_validate', { 'id': devi.id }) }}"><i class="fas fa-user-check"></i></a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Facture</h2>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Création</th>
+							<th>Acompte</th>
+							<th>Editer</th>
+							<th>Valider</th>
+							<th>Payé</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for facture in factures %}
+						<tr>
+							<td>{{ facture.devis.client.nom }}</td>
+							<td>{{ facture.date|date("d/m/Y") }}</td>
+
+							<td>
+							{% if facture.validation is null %}
+								{% if facture.devis.accompte is null %}
+									<a href="{{ path('invoice_advance', { 'devis': facture.devis.id }) }}"><i class="fas fa-user-plus"></i></a>
+								{% else %}
+									<i class="fas fa-check text-success"></i>
+								{% endif %}
+							{% endif %}
+							</td>
+
+							<td>
+							{% if facture.validation is null %}
+								<a href="{{ path('invoice', { 'facture':  facture.id }) }}"><i class="fas fa-user-edit"></i></a>
+							{% endif %}
+							</td>
+
+							<td>
+							{% if facture.validation is null %}
+								<a href="{{ path('invoice_validate', { 'facture': facture.id }) }}"><i class="fas fa-user-check"></i></a>
+							{% else %}
+								{{ facture.validation|date("d/m/Y") }}
+							{% endif %}
+							</td>
+
+							<td>
+							{% if facture.validation  %}
+								<a href="{{ path('invoice_sold', { 'facture': facture.id }) }}"><i class="fas fa-user-check"></i></a>
+
+							{% endif %}
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

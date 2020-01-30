@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+{% block page %}
+	<h1>Generation avoir</h1>
+{% endblock %}
+{% block body %}
+
+
+<div class="row mt-3">
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Recherche</h2>
+			</div>
+			<div class="card-body">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+					<button type="submit" class="btn btn-primary mt-2 btn-block">Rechercher</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+		{% if message is defined %}
+				<div class="alert alert-danger mt-2" role="alert">
+					{{ message }}
+				</div>
+			{% endif %}
+	</div>
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Details</h2>
+			</div>
+			<div class="card-body">
+			{% if avoir %}
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="3">quantité</th>
+							<th>Libellé</th>
+							<th>prix</th>
+							<th>Suppr</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% set somme = 0 %}
+						{% for ligne in avoir.ligneAvoir %}
+						<tr>
+							<td><a
+								href="{{ path('debit_serviceQty', { 'action': 'remove', 'ligneAvoir': ligne.id }) }}"><i
+									class="fas fa-minus-square"></i></a></td>
+							<td>{{ ligne.quantite }}</td>
+							<td><a
+								href="#"><i
+									class="fas fa-plus-square"></i></a></td>
+							<td>{{ ligne.prestation.libelle }}</td>
+							<td>{{ ligne.prestation.montant }}</td>
+							<td><a
+								href="{{ path('debit_removeLine', { 'ligneAvoir': ligne.id }) }}"><i
+									class="fas fa-times-circle"></i></a></td>
+						</tr>
+						{% set somme = somme + (ligne.prestation.montant*ligne.quantite) %}
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3"></td>
+							<td>Somme :</td>
+							<td>{{ somme }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td>Discount :</td>
+							<td>{{ avoir.facture.discount }} %</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td>Total :</td>
+							{% set somme = somme - (somme*avoir.facture.discount/100) %}
+							<td>{{ somme }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td>Acompte :</td>
+								{% set acompte = 0 %}
+								{% if avoir.facture.devis and avoir.facture.devis.accompte %}
+									{% set acompte = avoir.facture.devis.accompte.montant %}
+								{% endif %}
+							<td>{{ acompte }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td><b>Reste a payer :</b></td>
+							{% set somme = somme - acompte %}
+							<td><b>{{ somme }}</b></td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+				<a class="btn btn-primary alfSize" href="{{ path('debit_validate',{ 'avoir': avoir.id }) }}">valider</a>
+				<a class="btn btn-primary alfSize" href="{{ path('debit_cancel',{ 'avoir': avoir.id }) }}">Annuler</a>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}

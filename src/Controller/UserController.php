@@ -2,18 +2,29 @@
 
 namespace App\Controller;
 
+use App\Repository\DevisRepository;
+use App\Repository\FactureRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * route user****************
+ * secu**************************
+ */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="user_page")
      */
-    public function index()
+    public function index(FactureRepository $factureRepository, DevisRepository $devisRepository)
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        $devis = $devisRepository->showActiveQuotation();
+        $factures = $factureRepository->findBy(array('payee'=>0));
+        
+        return $this->render('user/dashboard.html.twig', array(
+            'devis'=> $devis,
+            'factures'=> $factures
+        ));
     }
 }

@@ -19,6 +19,15 @@ class DevisRepository extends ServiceEntityRepository
         parent::__construct($registry, Devis::class);
     }
 
+    public function showActiveQuotation(){
+        return $this->createQueryBuilder('d')
+        ->where('d.envoi is not null')
+        ->andWhere('d.validation is null')
+        ->andWhere('d.annulation is null')
+        ->getQuery()
+        ->getResult();
+    }
+    
     // /**
     //  * @return Devis[] Returns an array of Devis objects
     //  */

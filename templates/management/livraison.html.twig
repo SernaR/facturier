@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+{% block page %}
+	<h1>
+    	Facture
+    	-
+    	{{ facture.devis.client.nom }}
+    	{{ facture.devis.client.prenom  }}
+    </h1>
+{% endblock %}
+{% block body %}
+
+<div class="row mt-3">
+
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Livraison</h2>
+			</div>
+			<div class="card-body">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				<button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Details</h2>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>quantité</th>
+							<th>Libellé</th>
+							<th>prix</th>
+							<th>Supprimer</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% set somme = 0 %}
+						{% for ligne in facture.ligneFacture %}
+						<tr>
+							<td>{{ ligne.quantite }}</td>
+							<td>{{ ligne.prestation.libelle }}</td>
+							<td>{{ ligne.prestation.montant }}</td>
+						</tr>
+						{% set somme = somme + (ligne.prestation.montant*ligne.quantite) %}
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td></td>
+							<td>somme :</td>
+							<td>{{ somme }}</td>
+
+						</tr>
+						<tr>
+							<td></td>
+							<td>Discount :</td>
+							<td>{{ facture.devis.discount }} %</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><b>reste a payer :</b></td>
+							{% set somme = somme - (somme*facture.devis.discount/100) %}
+							<td><b>{{ somme }}</b></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>acompte :</td>
+								{% set acompte = 0 %}
+								{% if facture.devis and facture.devis.accompte %}
+									{% set acompte = facture.devis.accompte.montant %}
+								{% endif %}
+							<td>{{ acompte }}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>reste a payer :</td>
+								{% set somme = somme - acompte %}
+							<td>{{ somme }}</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

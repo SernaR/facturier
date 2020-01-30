@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block page %}
+	<h1>Prestations</h1>
+{% endblock %}
+{% block body %}
+<div class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<p>Es-tu sure de vouloir supprimer cette prestation ?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn "><a id="js-delete"
+					href="#">Oui</a></button>
+				<button type="button" class="btn js-toggle">Non</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row mt-3">
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Création</h2>
+			</div>
+			<div class="card-body">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				<button type="submit"
+					class="btn btn-primary mt-2 alfSize">Créer</button>
+				<a href="{{ path('service') }}" class="btn btn-primary mt-2 alfSize">Annuler</a>	
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Recherche</h2>
+			</div>
+			<div class="card-body">
+				{{ form_start(form2) }}
+				{{ form_widget(form2) }}
+				<button type="submit"
+					class="btn btn-primary mt-2 btn-block">Rechercher</button>
+				{{ form_end(form2) }}
+			</div>
+		</div>
+		<div class="card card-default card-table">
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Code</th>
+							<th>Libelle</th>					
+							<th>Montant</th>
+							<th>Modf</th>
+							<th>Dupl</th>
+							<th>Suppr</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for prestation in prestations %}
+						<tr>
+							<td>{{ prestation.code }}</td>
+							<td>{{ prestation.libelle }}</td>
+							<td>{{ prestation.montant }}</td>
+							<td><a
+								href="{{ path('service_edit', { 'id': prestation.id }) }}"><i
+									class="fas fa-edit"></i></a></td>
+							<td><a
+								href="{{ path('service_duplicate', { 'id': prestation.id }) }}"><i 
+								class="far fa-clone"></i></a></td>		
+							<td><i id="{{ path('service_delete', { 'id': prestation.id }) }}" class="fas fa-times-circle icone-rouge js-toggle"></i></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/service.js') }}"></script>
+{% endblock %}

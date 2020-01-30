@@ -19,6 +19,17 @@ class PrestationRepository extends ServiceEntityRepository
         parent::__construct($registry, Prestation::class);
     }
 
+    public function findService($libelle){
+        return $this->createQueryBuilder('p')
+        ->where('p.libelle LIKE :libelle')
+        ->andWhere('p.dateDeFin is null')
+        ->setParameter('libelle', '%'.$libelle.'%')
+        ->orderBy('p.libelle', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+  
+
     // /**
     //  * @return Prestation[] Returns an array of Prestation objects
     //  */

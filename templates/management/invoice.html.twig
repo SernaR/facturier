@@ -1,0 +1,137 @@
+{% extends 'serviceModal.html.twig' %}
+{% block page %}
+	<h1>
+    	Facture 
+    	-
+    	{{ facture.devis.client.nom }}
+    	{{ facture.devis.client.prenom  }}
+	</h1>
+{% endblock %}
+{% block subBody %}
+
+<div class="row mt-3">
+
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+
+			<div class="card-header">
+				<h2>Prestations</h2>
+			</div>
+			<div class="card-body">
+				<div class="btn-group btn-block" role="group">
+					<a 
+						class="btn btn-secondary {% if focus is defined and focus== '1' %}cyan{% endif %}"
+						href="{{ path('invoice', { 'facture':  facture.id, 'type':  1 }) }}">
+						<i class="fas fa-desktop"></i>
+					</a>
+					<a 
+						class="btn btn-secondary {% if focus is defined and focus== '2' %}cyan{% endif %}"
+						href="{{ path('invoice', { 'facture':  facture.id, 'type':  2 }) }}">
+						<i class="fas fa-palette"></i>
+					</a>
+					<a 
+						class="btn btn-secondary {% if focus is defined and focus== '3' %}cyan{% endif %}"
+						href="{{ path('invoice', { 'facture':  facture.id, 'type':  3 }) }}">
+						<i class="fas fa-cogs"></i>
+					</a>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<tbody>
+							{% for prestation in prestations %}
+							<tr>
+								<td><i id="{{ prestation.description | nl2br }}" class="fas fa-search-plus js-toggle"></i></td>
+								<td class="left">{{ prestation.code }} - {{ prestation.libelle }}</td>
+								<td><a
+									href="{{ path('invoice_addLine', { 'facture': facture.id, 'prestation': prestation.id }) }}"><i
+										class="fas fa-cart-plus"></i></a></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-header">
+				<h2>Details</h2>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="3">quantité</th>
+							<th>Libellé</th>
+							<th>prix</th>
+							<th>Suppr</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% set somme = 0 %}
+						{% for ligne in facture.ligneFacture %}
+						<tr>
+							<td><a
+								href="{{ path('invoice_serviceQty', { 'ligneFacture': ligne.id, 'action':"remove" }) }}"><i
+									class="fas fa-minus-square"></i></a></td>
+							<td>{{ ligne.quantite }}</td>
+							<td><a
+								href="{{ path('invoice_serviceQty', { 'ligneFacture': ligne.id, 'action':"add" }) }}"><i
+									class="fas fa-plus-square"></i></a></td>
+							<td>{{ ligne.prestation.libelle }}</td>
+							<td>{{ ligne.prestation.montant }}</td>
+							<td><a
+								href="{{ path('invoice_removeLine', { 'ligneFacture': ligne.id }) }}"><i
+									class="fas fa-times-circle"></i></a></td>
+						</tr>
+						{% set somme = somme + (ligne.prestation.montant*ligne.quantite) %}
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3"></td>
+							<td>Somme :</td>
+							<td>{{ somme }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td>Discount :</td>
+							<td>{{ facture.discount }} %</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td>Total :</td>
+							{% set somme = somme - (somme*facture.discount/100) %}
+							<td>{{ somme }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td>Acompte :</td>
+								{% set acompte = 0 %}
+								{% if facture.devis.accompte %}
+									{% set acompte = facture.devis.accompte.montant %}
+								{% endif %}
+							<td>{{ acompte }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3"></td>
+							<td><b>Reste a payer :</b></td>
+							{% set somme = somme - acompte %}
+							<td><b>{{ somme }}</b></td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+				<a class="btn btn-primary btn-block" href="{{ path('invoice_validate', { 'facture': facture.id }) }}">valider</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

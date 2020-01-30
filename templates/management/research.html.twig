@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+{% block page %}
+	<h1>liste des PDF</h1>
+{% endblock %}
+{% block body %}
+
+
+<div class="row mt-3">
+	{% if form is defined %}
+	<div class="container col-sm-6">
+		<div class="card card-default card-table">
+			<div class="card-body">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				<button type="submit" class="btn btn-primary mt-2 btn-block">Rechercher</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="col-sm-12">
+		{% for client in clients %}
+		<div class="card card-default card-table mb-3">
+			<div class="card-header">
+				<h2>{{ client.nom }} {{ client.prenom }}</h2>
+			</div>
+			<div class="card-body">	
+				<div class="row">
+					<div class="list-group col-sm ml-3">
+						{% for devi in client.devis %}
+							{% if devi.envoi %}
+								{% if devi.annulation %}
+									<div class="list-group-item  grey">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">Devis n° {{ devi.id }}</h5>
+											<small>Annulé</small>
+										</div>
+										<p class="mb-1">{{ devi.envoi|date("d/m/Y") }}</p>
+										<small>&nbsp;</small>
+									</div>
+								{% else %}	
+									<a href="{{ path('research_quotation', { 'devis':  devi.id }) }}" class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">Devis n° {{ devi.id }}</h5>
+											<small>
+												{% if(devi.validation) %}	
+													Validé
+												{% else %}
+													En cours
+												{% endif %}
+											</small>
+										</div>
+										<p class="mb-1">{{ devi.envoi|date("d/m/Y") }}</p>
+										<small>&nbsp;</small>
+									</a>
+								{% endif %}	
+							{% endif %}		
+						{% endfor %}
+					</div>
+					<div class="list-group col-sm">
+						{% for devi in client.devis %}
+							{% if devi.accompte %}
+								<a href="{{ path('research_advance', { 'accompte':  devi.accompte.id }) }}" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h5 class="mb-1">Acompte n° {{ devi.accompte.numero }}</h5>
+										<small>Réglé</small>
+									</div>
+									<p class="mb-1">{{ devi.accompte.date|date("d/m/Y") }}</p>
+									<small>Selon devis n° {{ devi.id }}</small>
+								</a>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="list-group col-sm">
+						{% for devi in client.devis %}
+							{% if devi.facture %}
+								<a href="{{ path('research_invoice', { 'facture':  devi.facture.id }) }}" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Facture n° {{ devi.facture.numero }}</h5>
+									<small>
+										{% if devi.facture.payee == true %}
+											Réglée
+										{% else %}
+											En cours
+										{% endif %}	
+									</small>
+									</div>
+									<p class="mb-1">{{  devi.facture.validation|date("d/m/Y") }}</p>
+									{% if devi.envoi %}
+										<small>Selon devis n° {{ devi.id }}</small>
+									{% else %}
+										<small>&nbsp;</small>	
+									{% endif %}
+								</a>
+							{% endif %}	
+						{% endfor %}
+					</div>
+					<div class="list-group col-sm">
+						{% for devi in client.devis %}
+							{% if devi.facture and devi.facture.avoir %}
+								<a href="{{ path('research_debit', { 'avoir': devi.facture.avoir.id }) }}" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Avoir n° {{ devi.facture.avoir.numero }}</h5>
+									<small>Réglé</small>
+									</div>
+									<p class="mb-1">{{ devi.facture.avoir.date |date("d/m/Y") }}</p>
+									<small>Selon facture n° {{ devi.facture.numero }}</small>
+								</a>
+							{% endif %}	
+						{% endfor %}
+					</div>
+				</div>			
+			</div>
+		</div>
+		{% endfor %}	
+	</div>
+</div>
+
+{% endblock %}

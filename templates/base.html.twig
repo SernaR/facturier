@@ -1,12 +1,69 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta charset="utf-8" />
+        <title>{% block title %}facturier{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+           <div class="container">
+
+                <a class="navbar-brand" href="{{ path('user_page') }}"><img src="{{ asset('img/logo-kip-creativ-inline.png') }}" alt="logo kip creativ"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('customer') }}"><i class="fas fa-users fa-2x {% if current_menu is defined and current_menu=='customer' %}icone-orange{% endif %}"></i><br>Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('service') }}"><i class="fas fa-users-cog fa-2x {% if current_menu is defined and current_menu=='service' %}icone-orange{% endif %}"></i><br>Prestations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('creation_getCustomer') }}"><i class="far fa-address-card fa-2x {% if current_menu is defined and current_menu=='creation' %}icone-orange{% endif %}" ></i><br>Devis</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('debit') }}"><i class="fas fa-hand-holding-usd fa-2x {% if current_menu is defined and current_menu=='debit' %}icone-orange{% endif %}" ></i><br>Avoir</a>
+                    </li>
+
+                    <li class="nav-item">
+               	    	<a class="nav-link" href="{{ path('research') }}"><i class="fas fa-search fa-2x {% if current_menu is defined and current_menu=='research' %}icone-orange{% endif %}"></i><br/>Recherche</a>
+                    </li>
+                  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                  	<li class="nav-item">
+    					<a class="nav-link" href="#"><i class="fas fa-sign-out-alt fa-2x"></i><br>déconnexion</a>
+    				 </li>
+                  {% endif %}
+                </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="card-header">
+            <div class="container text-center">
+                {% block page %}
+                  <h1>Bienvenue</h1>
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
