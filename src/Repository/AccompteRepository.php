@@ -19,6 +19,13 @@ class AccompteRepository extends ServiceEntityRepository
         parent::__construct($registry, Accompte::class);
     }
 
+    public function findAdvanceCount(){
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    } 
+
     // /**
     //  * @return Accompte[] Returns an array of Accompte objects
     //  */

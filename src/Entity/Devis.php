@@ -19,7 +19,7 @@ class Devis
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
 
@@ -184,6 +184,7 @@ class Devis
     public function setAccompte(?Accompte $accompte): self
     {
         $this->accompte = $accompte;
+        $accompte->setDevis($this);
 
         return $this;
     }
@@ -196,6 +197,7 @@ class Devis
     public function setFacture(?Facture $facture): self
     {
         $this->facture = $facture;
+        $facture->setDevis($this);
 
         return $this;
     }

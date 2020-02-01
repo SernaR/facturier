@@ -29,7 +29,7 @@ class Client
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $adresse;
 

@@ -19,7 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
 * @Route("debit")
-* secu**********************************
 */
 class AvoirController extends AbstractController
 {
@@ -62,8 +61,7 @@ class AvoirController extends AbstractController
 
                     $ligneAvoir = new LigneAvoir();
                     $ligneAvoir->setQuantite($ligneFacture->getQuantite());
-                    $ligneAvoir->setPrestation($ligneFacture->getPrestation());
-                    $ligneAvoir->setAvoir($avoir); 
+                    $ligneAvoir->setPrestation($ligneFacture->getPrestation()); 
                     $avoir->addLigneAvoir($ligneAvoir);
 
                 }

@@ -19,8 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
 * @Route("creation")
-* secu******************************
-* 
 */
 class CreationController extends AbstractController
 {
@@ -68,7 +66,7 @@ class CreationController extends AbstractController
         $this->em->persist($devis);
         $this->em->flush();
 
-        return $this->redirectToRoute('management/creation', array(
+        return $this->redirectToRoute('creation', array(
             'devis' => $devis->getId(),
         ));
     }
@@ -147,7 +145,6 @@ class CreationController extends AbstractController
 
         $lignedevis = new LigneDevis();
         $lignedevis->setPrestation($prestation);
-        $lignedevis->setDevis($devis);
         $devis->addLigneDevi($lignedevis);
         
         $this->em->persist($devis);

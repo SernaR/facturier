@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\RegistrationType;
 
 use Doctrine\ORM\EntityManagerInterface;
-//use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +17,7 @@ class SecurityController extends AbstractController
     /**
     * @Route("/", name="security_homepage")
     */
-   public function indexAction(Request $request)
+   public function indexAction()
    {
        return $this->redirectToRoute('user_page');
    }

@@ -22,7 +22,7 @@ class LigneFacture
     private $quantite = 1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Prestation", inversedBy="lignesFacture")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Prestation", inversedBy="ligneFacture")
      */
     private $prestation;
 

@@ -1,4 +1,4 @@
-{% extends 'serviceModal.html.twig' %}
+{% extends 'management/serviceModal.html.twig' %}
 {% block page %}
 	<h1>
     	Facture 
@@ -98,13 +98,13 @@
 						<tr>
 							<td colspan="3"></td>
 							<td>Discount :</td>
-							<td>{{ facture.discount }} %</td>
+							<td>{{ facture.devis.discount }} %</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td colspan="3"></td>
 							<td>Total :</td>
-							{% set somme = somme - (somme*facture.discount/100) %}
+							{% set somme = somme - (somme*facture.devis.discount/100) %}
 							<td>{{ somme }}</td>
 							<td></td>
 						</tr>

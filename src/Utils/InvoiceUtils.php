@@ -39,20 +39,23 @@ class InvoiceUtils
 
   public function setInvoice($em, $devis){
     $facture = new Facture();
+    $devis->setFacture($facture);
 
     $facture->setDate(new \Datetime());
-    $facture->setDevis($devis);
+    //$facture->setDevis($devis);
     
     foreach( $devis-> getLigneDevis() as $ligne ){    
         $ligneFacture = new LigneFacture();
         
         $ligneFacture->setQuantite($ligne->getQuantite());
         $ligneFacture->setPrestation($ligne->getPrestation());
-        $ligneFacture->setFacture($facture); 
         $facture->addLigneFacture($ligneFacture);
-      }
 
-    $em->persist($facture);       
+        $em->persist($ligneFacture); //cascade persist KO ??
+      }
+    
+    $em->persist($facture);  //cascade persist KO ??
+    $em->persist($devis);       
     return $facture;
 
   }

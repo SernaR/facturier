@@ -54,7 +54,7 @@ class Prestation
     private $ligneDevis;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="prestation")
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="prestation", cascade={"persist"})
      */
     private $ligneFacture;
 

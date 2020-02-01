@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block page %}
+	<h1>Oops! un problème est survenue</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        
+        <h2>Le serveur retourne un "{{ status_code }} {{ status_text }}".</h2>
+
+        <div>
+            Quelque chose est cassé. 
+            Envoyez-nous un e-mail à l'adresse rserna@outlook.fr et indiquez-nous ce que vous faisiez lorsque cette erreur s'est produite. 
+            Nous allons le réparer dès que possible. 
+            Désolé pour tout inconvénient causé.
+        </div>
+    </div>
+   
+{% endblock %}

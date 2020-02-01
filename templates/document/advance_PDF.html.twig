@@ -73,9 +73,9 @@
 				<tr>
 					
 					<td class="descrp">Acompte sur devis n°{{ accompte.devis.id }}</td>
-					<td class="pu">{{ accompte.montant }} €</td>
+					<td class="pu">{{ accompte.montant|number_format(2, '.', ' ') }} €</td>
 					<td class="qte">1</td>
-					<td class="montant">{{ accompte.Montant }} €</td>
+					<td class="montant">{{ accompte.Montant|number_format(2, '.', ' ') }} €</td>
 				</tr>
 			</table>
 		</section>
@@ -98,7 +98,7 @@
 				<tr>
 					<td class="total-4"></td>
 					<td class="total-5-bord">Total HT</td>
-					<td class="total-6-bord">{{ accompte.montant }} €</td>
+					<td class="total-6-bord">{{ accompte.montant|number_format(2, '.', ' ') }} €</td>
 				</tr>
 				<tr>
 					<td colspan="3" rowspan="4" class="total-1-mention">
@@ -112,7 +112,7 @@
 				<tr>
 					<td class="total-4"></td>
 					<td class="total-5-bord">Total TTC</td>
-					<td class="total-6-bord">{{ accompte.montant }} €</td>
+					<td class="total-6-bord">{{ accompte.montant|number_format(2, '.', ' ') }} €</td>
 				</tr>
 				<tr>
 					<td class="total-4"></td>

@@ -34,7 +34,7 @@ class Avoir
     private $facture;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneAvoir", mappedBy="avoir")
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneAvoir", mappedBy="avoir", cascade={"persist", "remove"})
      */
     private $ligneAvoir;
 

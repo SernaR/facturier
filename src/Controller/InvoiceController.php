@@ -15,9 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/*/
+/*
 * @Route("invoice")
-* secu///////////////////////////
 */
 class InvoiceController extends AbstractController
 {
@@ -29,9 +28,8 @@ class InvoiceController extends AbstractController
     }
 
     /**
-     *
-     * @Route("/index/{facture}/{type}", name="invoice", defaults={ "type": 1 })
-     */
+    * @Route("/index/{facture}/{type}", name="invoice", defaults={ "type": 1 })
+    */
     public function index(Facture $facture, TypeDeService $type, PrestationRepository $prestationRepository)
     {
         if (!is_null($facture->getValidation())) {

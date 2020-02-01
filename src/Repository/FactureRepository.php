@@ -19,6 +19,13 @@ class FactureRepository extends ServiceEntityRepository
         parent::__construct($registry, Facture::class);
     }
 
+    public function findInvoiceCount(){
+        return $this->createQueryBuilder('f')
+            ->select('COUNT(f.numero)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }  
+    
     // /**
     //  * @return Facture[] Returns an array of Facture objects
     //  */

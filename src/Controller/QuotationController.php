@@ -66,16 +66,17 @@ class QuotationController extends AbstractController
         if ( !is_null($devis->getValidation()) && is_null($devis->getAnnulation())) {
 
             $accompte = new Accompte();
-            $accompte->setDevis($devis);
+           // $accompte->setDevis($devis);
+            $devis->setAccompte($accompte);
             
             $form = $this->createForm(AccompteType::class, $accompte);
             $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()) {
-                $accompte->setNumero($utils->getNumber($this->em));
+                $accompte->setNumero($utils->getNumber());
                 $accompte->setDate(new \Datetime());
 
-                $this->em->persist($accompte);
+                $this->em->persist($devis);
                 $this->em->flush();
     
                 return $this->redirectToRoute('research_advance', array(

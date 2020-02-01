@@ -76,9 +76,9 @@
 					<td class="ref">{{ ligne.prestation.code }}</td>
 					<td class="presta">{{ ligne.prestation.libelle }}</td>
 					<td class="descrp">{{ ligne.prestation.description | nl2br}}</td>
-					<td class="pu">{{ ligne.prestation.montant }} €</td>
+					<td class="pu">{{ ligne.prestation.montant|number_format(2, '.', ' ') }} €</td>
 					<td class="qte">{{ ligne.quantite }}</td>
-					<td class="montant">{{ ligne.prestation.montant*ligne.quantite }} €</td>
+					<td class="montant">{{ (ligne.prestation.montant*ligne.quantite)|number_format(2, '.', ' ') }} €</td>
 				</tr>
 				{% set somme = somme + (ligne.prestation.montant*ligne.quantite) %}
 				{% endfor %}
@@ -93,7 +93,7 @@
 					<td class="total-3">Date de validité du devis:</td>
 					<td class="total-4">1 mois</td>
 					<td class="total-5-bord">Total HT</td>
-					<td class="total-6-bord">{{ somme }} €</td>
+					<td class="total-6-bord">{{ somme|number_format(2, '.', ' ') }} €</td>
 				</tr>
 				<tr>
 					<td colspan="3" rowspan="2" class="total-1-mention">
@@ -108,7 +108,7 @@
 					<td class="total-4"></td>
 					<td class="total-5-bord">Total TTC</td>
 					{% set somme = somme - (somme*devis.discount/100) %}
-					<td class="total-6-bord">{{ somme }} €</td>
+					<td class="total-6-bord">{{ somme|number_format(2, '.', ' ') }} €</td>
 				</tr>
 				<tr>
 					<td colspan="3" rowspan="3" class="total-1-mention">

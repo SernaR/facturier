@@ -19,6 +19,13 @@ class AvoirRepository extends ServiceEntityRepository
         parent::__construct($registry, Avoir::class);
     }
 
+    public function findDebitCount(){
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }   
+
     // /**
     //  * @return Avoir[] Returns an array of Avoir objects
     //  */

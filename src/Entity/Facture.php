@@ -59,14 +59,13 @@ class Facture
     private $avoir;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="facture")
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="facture", cascade={"persist", "remove"})
      */
     private $ligneFacture;
 
 
     public function __construct()
     {
-        $this->prestation = new ArrayCollection();
         $this->ligneFacture = new ArrayCollection();
     }
 
@@ -167,6 +166,7 @@ class Facture
     public function setAvoir(?Avoir $avoir): self
     {
         $this->avoir = $avoir;
+        $avoir->setFacture($this);
 
         return $this;
     }
