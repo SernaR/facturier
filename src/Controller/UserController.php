@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("user")
- * secu**************************
+ * 
  */
 class UserController extends AbstractController
 {

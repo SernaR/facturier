@@ -12,13 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
-* secu***************************************
+* 
 * @Route("service")
 */
 class ServiceController extends AbstractController
 {
     private $em;
     private $prestationRepository;
+    const MESSAGE =  'Enregistrement effectué';
 
     public function __construct(EntityManagerInterface $em, PrestationRepository $prestationRepository)
     {
@@ -32,6 +33,10 @@ class ServiceController extends AbstractController
     public function index(Request $request)
     {
         $prestation = new Prestation();
+        if( isset($_GET['message']) ) {
+            $message = self::MESSAGE;
+            return $this->getData($request, $prestation, $message);
+        }
         return $this->getData($request, $prestation);
     }
 
@@ -92,7 +97,7 @@ class ServiceController extends AbstractController
         }  
     }
   
-    public function getData($request,$prestation){
+    public function getData($request, $prestation, $message = ''){
 
         $form = $this->createForm(PrestationType::class, $prestation);
         $form->handleRequest($request);
@@ -106,7 +111,7 @@ class ServiceController extends AbstractController
             $this->em->persist($prestation);
             $this->em->flush();
 
-            return $this->redirectToRoute('service');
+            return $this->redirectToRoute('service', ['message' => true]);
         }
 
         if($form2->isSubmitted() && $form2->isValid()){
@@ -125,6 +130,7 @@ class ServiceController extends AbstractController
             'form' => $form->createView(),
             'form2' => $form2->createView(),
             'current_menu'=>'service',
+            'message' => $message
         ));
     }
 }

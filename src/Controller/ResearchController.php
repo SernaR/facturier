@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
 * @Route("research")
-* secu**************************************************************
+* 
 */
 class ResearchController extends AbstractController
 {
@@ -38,7 +38,7 @@ class ResearchController extends AbstractController
            $nom = $form['nom']->getData();
            $clientFound = $clientRepository->findCustomer($nom);
            
-           return $this->render('management/research.html.twig', array( ////////////////////refacto????
+           return $this->render('management/research.html.twig', array( 
                'clients' => $clientFound,
                'current_menu'=>'research',
            ));

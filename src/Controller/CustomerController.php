@@ -12,16 +12,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("customer")
- * secu
+ * 
  */
 class CustomerController extends AbstractController
 {
+    const MESSAGE =  'Enregistrement effectué';
+
     /**
      * @Route("/", name="customer")
      */
     public function index(Request $request, ClientRepository $clientRepository)
     {
         $client = new Client();
+        if( isset($_GET['message']) ) {
+            $message = self::MESSAGE;
+            return $this->getData($request, $client, $clientRepository, $message);
+        }
         return $this->getData($request, $client, $clientRepository);
     }
 
@@ -34,7 +40,7 @@ class CustomerController extends AbstractController
         
     }
     
-    public function getData($request, $client, $clientRepository){
+    public function getData($request, $client, $clientRepository, $message = ''){
         
         $em = $this->getDoctrine()->getManager();
         
@@ -51,10 +57,10 @@ class CustomerController extends AbstractController
             $em->flush();
             
             if(isset($_GET['update'])){
-                return $this->redirectToRoute('customer');
+                return $this->redirectToRoute('customer', array('message' => true) );
             }else{
-                return $this->redirectToRoute('creation_quotation',array(
-                    'client' => $client->getId()
+                return $this->redirectToRoute('creation_quotation', array(
+                    'client' => $client->getId(),
                 ));
             }
         }
@@ -76,7 +82,7 @@ class CustomerController extends AbstractController
             'form' => $form->createView(),
             'form2' => $form2->createView(),
             'current_menu'=>'customer',
-            
+            'message' => $message
         ));
     }
 }

@@ -14,9 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-//todo refacto
-
-
 /**
 * @Route("debit")
 */
@@ -69,7 +66,7 @@ class AvoirController extends AbstractController
                 $this->em->persist($avoir);
                 $this->em->flush();   
                 
-                return $this->render('management/debit.html.twig', array( ///////////todo refacto
+                return $this->render('management/debit.html.twig', array( 
                     'avoir'=> $avoir,
                     'form'=> $form->createView(),
                     'current_menu' => 'debit',

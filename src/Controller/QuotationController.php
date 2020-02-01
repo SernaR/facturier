@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
 * @Route("quotation")
-* secu//////////////////////////////////////////
+* 
 */
 class QuotationController extends AbstractController
 {
