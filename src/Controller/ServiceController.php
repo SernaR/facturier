@@ -97,7 +97,7 @@ class ServiceController extends AbstractController
         }  
     }
   
-    public function getData($request, $prestation, $message = ''){
+    public function getData($request, $prestation, $message = null){
 
         $form = $this->createForm(PrestationType::class, $prestation);
         $form->handleRequest($request);

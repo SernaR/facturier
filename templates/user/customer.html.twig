@@ -6,6 +6,14 @@
 {% block body %}
 <div class="row mt-3">
 	<div class="col-lg-6 col-md-12 mb-3">
+		{% if message is defined and message is not null %}
+			<div class="alert alert-success mt-2 js-message" role="alert">
+				{{ message }}
+				<button type="button" id="js-message" class="close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		{% endif %}
 		<div class="card card-default card-table">
 			<div class="card-header">
 				<h2>Création</h2>
@@ -18,11 +26,7 @@
 				{{ form_end(form) }}
 			</div>
 		</div>
-		{% if message is defined %}
-			<div class="alert alert-success mt-2" role="alert">
-				{{ message }}
-			</div>
-		{% endif %}
+		
 	</div>
 	<div class="col-lg-6 col-md-12 mb-3">
 		<div class="card card-default card-table">
@@ -69,4 +73,9 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/service.js') }}"></script>
 {% endblock %}

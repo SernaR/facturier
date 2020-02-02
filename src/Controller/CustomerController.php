@@ -40,7 +40,7 @@ class CustomerController extends AbstractController
         
     }
     
-    public function getData($request, $client, $clientRepository, $message = ''){
+    public function getData($request, $client, $clientRepository, $message = null){
         
         $em = $this->getDoctrine()->getManager();
         
