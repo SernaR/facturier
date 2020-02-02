@@ -22,9 +22,8 @@ class SecurityController extends AbstractController
        return $this->redirectToRoute('user_page');
    }
 
-    /**
-     * @Route("/inscription", name="registration")
-     */
+    
+    // @Route("/inscription", name="registration")
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
         $user = new User();
         $form = $this->createForm(registrationType::class, $user);

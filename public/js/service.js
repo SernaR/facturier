@@ -5,6 +5,6 @@ $(document).ready(function(){
   });
 
   $('#js-message').click(function(){
-    $('.js-message').fadeToggle('500');
+    $('.js-message').slideUp();
   });
 });

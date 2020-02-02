@@ -52,7 +52,7 @@ class AvoirController extends AbstractController
             if (!isset($message)) {
                $avoir = new Avoir();
                 $avoir->setDate(new \Datetime());
-                $avoir->setFacture($facture);
+                $facture->setAvoir($avoir);
                 
                 foreach($facture->getLigneFacture() as $ligneFacture){
 
@@ -63,7 +63,7 @@ class AvoirController extends AbstractController
 
                 }
                 
-                $this->em->persist($avoir);
+                $this->em->persist($facture);
                 $this->em->flush();   
                 
                 return $this->render('management/debit.html.twig', array( 
