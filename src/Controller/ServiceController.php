@@ -53,9 +53,7 @@ class ServiceController extends AbstractController
 
             $newPrestation = new Prestation();
             return $this->getData($request, $newPrestation);
-        }
-        
-        
+        }      
     }
   
     /**

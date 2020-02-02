@@ -32,9 +32,8 @@ class InvoiceUtils
     $AdvanceCount = $this->accompteRepository->findAdvanceCount();
     $InvoiceCount = $this->factureRepository->findInvoiceCount();
     $debitCount = $this->avoirRepository->findDebitCount();
-    $increment = 10;
 
-    return 'F'.str_pad( $AdvanceCount +  $InvoiceCount +  $increment +  $debitCount, 4, "0", STR_PAD_LEFT );
+    return 'F'.str_pad( $AdvanceCount +  $InvoiceCount +  $debitCount, 4, "0", STR_PAD_LEFT );
   }
 
   public function setInvoice($em, $devis){
