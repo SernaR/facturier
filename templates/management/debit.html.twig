@@ -19,8 +19,11 @@
 			</div>
 		</div>
 		{% if message is defined %}
-			<div class="alert alert-danger mt-2" role="alert">
+			<div class="alert alert-danger mt-2 js-message" role="alert">
 				{{ message }}
+				<button type="button" id="js-message" class="close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		{% endif %}
 	</div>
@@ -106,4 +109,8 @@
 		</div>
 	</div>
 	
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/service.js') }}"></script>
 {% endblock %}
