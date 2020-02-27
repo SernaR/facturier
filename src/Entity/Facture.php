@@ -63,6 +63,11 @@ class Facture
      */
     private $ligneFacture;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $finPrestation;
+
 
     public function __construct()
     {
@@ -198,6 +203,18 @@ class Facture
                 $ligneFacture->setFacture(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFinPrestation(): ?\DateTimeInterface
+    {
+        return $this->finPrestation;
+    }
+
+    public function setFinPrestation(?\DateTimeInterface $finPrestation): self
+    {
+        $this->finPrestation = $finPrestation;
 
         return $this;
     }

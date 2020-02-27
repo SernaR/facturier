@@ -14,6 +14,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken;
+use Symfony\Component\Validator\Constraints\Date;
 
 /*
 * @Route("invoice")
@@ -90,7 +92,11 @@ class InvoiceController extends AbstractController
             $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()) {
-                $facture->setValidation(new \Datetime());
+                $date = clone $facture->getLivraison();
+                $interval = new \DateInterval('P12M');
+
+                $facture->setValidation(new \Datetime());  
+                $facture->setFinPrestation($date->add($interval));
                 $facture->setNumero($utils->getNumber());
 
                 $this->em->persist($facture);
@@ -126,7 +132,7 @@ class InvoiceController extends AbstractController
     /**
     * @Route("/serviceQty/{action}/{ligneFacture}", name="invoice_serviceQty")
     */
-    public function editQuantiyAction(LigneFacture $ligneFacture, ManipulationUtils $utils, $action)
+    public function editQuantiy(LigneFacture $ligneFacture, ManipulationUtils $utils, $action)
     {     
         if (is_null($ligneFacture->getFacture()->getValidation())){
             $utils->editQuantiy($ligneFacture, $action, $this->em);
@@ -134,6 +140,25 @@ class InvoiceController extends AbstractController
             return $this->redirectToRoute('invoice', array(
                 'facture' => $ligneFacture->getFacture()->getId(),
                 'type'=>$ligneFacture->getPrestation()->getType()->getId(),
+            ));
+        }
+    }
+
+    /**
+    * @Route("/new-contract/{facture}", name="invoice_repeatContract")
+    */
+    public function repeatContract(Facture $facture){
+        
+        if ($facture->getLigneFacture()){
+            //checker si dans les contrats à renouveler
+            $facture->setFinPrestation(new \Datetime());
+            $this->em->persist($facture);
+            $this->em->flush();
+
+            $clientId = $facture->getDevis()->getClient()->getId();
+            return $this->redirectToRoute('creation_quotation', array(
+                'client' => $clientId,
+                'type' => 3
             ));
         }
     }

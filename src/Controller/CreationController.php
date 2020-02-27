@@ -57,9 +57,9 @@ class CreationController extends AbstractController
     }
 
     /**
-    * @Route("/quotation/{client}", name="creation_quotation")
+    * @Route("/quotation/{client}/{type}", name="creation_quotation", defaults={ "type": 1 })
     */
-    public function createQuotation(Client $client){
+    public function createQuotation(Client $client, $type){
 
         $devis = new Devis();
         $devis->setClient($client);
@@ -68,6 +68,7 @@ class CreationController extends AbstractController
 
         return $this->redirectToRoute('creation', array(
             'devis' => $devis->getId(),
+            'type' => $type,
         ));
     }
 

@@ -21,10 +21,12 @@ class UserController extends AbstractController
     {
         $devis = $devisRepository->showActiveQuotation();
         $factures = $factureRepository->findBy(array('payee'=>0));
+        $contrats = $factureRepository->findMaintenanceContracts();
         
         return $this->render('user/dashboard.html.twig', array(
             'devis'=> $devis,
-            'factures'=> $factures
+            'factures'=> $factures,
+            'contrats' => $contrats
         ));
     }
 }

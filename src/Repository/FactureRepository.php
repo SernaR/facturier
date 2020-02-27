@@ -24,7 +24,20 @@ class FactureRepository extends ServiceEntityRepository
             ->select('COUNT(f.numero)')
             ->getQuery()
             ->getSingleScalarResult();
-    }  
+    } 
+    
+    public function findMaintenanceContracts(){
+        return $this->createQueryBuilder('f')
+            ->join('f.ligneFacture','l')
+            ->join('l.prestation', 'p')
+            ->where('p.libelle like :lib')
+            ->andWhere('f.finPrestation > :datecourant')
+            ->setParameter('lib', '%Maintenance%') 
+            ->setParameter('datecourant', new \Datetime(date('d-m-Y')))
+            ->orderBy('f.finPrestation', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     
     // /**
     //  * @return Facture[] Returns an array of Facture objects

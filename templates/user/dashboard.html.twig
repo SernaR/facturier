@@ -35,6 +35,37 @@
 				</table>
 			</div>
 		</div>
+
+		<div class="card card-default card-table mt-3">
+			<div class="card-header">
+				<h2>Contrats</h2>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Société</th>
+							<th>Date expiration</th>
+							<th>Renouveler</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for contrat in contrats %}
+						<tr>
+							<td>{{ contrat.devis.client.nom }}</td>
+							<td>{{ contrat.devis.client.societe }}</td>
+							<td>{{ contrat.finPrestation ? contrat.finPrestation | date("d/m/Y") : '' }}</td>
+							{% if contrat.finPrestation | date_modify("-1 month") | date('Y-m-d') < "now"| date('Y-m-d') %}
+								<td><a href="{{ path('invoice_repeatContract', { 'facture': contrat.id }) }}"><i class="fas fa-sync"></i></a></td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 	</div>
 	<div class="col-lg-6 col-md-12 mb-3">
 		<div class="card card-default card-table">
