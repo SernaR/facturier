@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 <div class="row mt-3">
-	<div class="col-lg-6 col-md-12 mb-3">
+	<div class="container col-lg-6 col-md-12 mb-3">
 		<div class="card card-default card-table">
 			<div class="card-header">
 				<h2>Devis</h2>
@@ -17,7 +17,11 @@
 							<th>Création</th>
 							<th>Envoi</th>
 							<th>Annuler</th>
-							<th>Valider</th>
+							{% if is_granted('ROLE_ADMIN') %}
+								<th>Valider</th>
+							{% else %}	
+								<th>Visualiser</th>
+							{% endif %}	
 						</tr>
 					</thead>
 					<tbody>
@@ -27,106 +31,112 @@
 
 							<td>{{  devi.date|date("d/m/Y") }}</td>
 							<td>{{ devi.envoi| date("d/m/Y")}}</td>
-							<td><a href="{{ path('quotation_cancel', { 'id':  devi.id }) }}"><i class="fas fa-user-minus"></i></a></td>
-							<td><a href="{{ path('quotation_validate', { 'id': devi.id }) }}"><i class="fas fa-user-check"></i></a></td>
+								<td><a href="{{ path('quotation_cancel', { 'id':  devi.id }) }}"><i class="fas fa-user-minus"></i></a></td>
+							{% if is_granted('ROLE_ADMIN') %}
+								<td><a href="{{ path('quotation_validate', { 'id': devi.id }) }}"><i class="fas fa-user-check"></i></a></td>
+							{% else %}	
+								<td><a href="{{ path('research_quotation', { 'devis': devi.id }) }}"><i class="fas fa-eye"></i></a></td>			
+							{% endif %}	
 						</tr>
 						{% endfor %}
 					</tbody>
 				</table>
 			</div>
 		</div>
-
-		<div class="card card-default card-table mt-3">
-			<div class="card-header">
-				<h2>Contrats</h2>
-			</div>
-			<div class="card-body">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Nom</th>
-							<th>Société</th>
-							<th>Date expiration</th>
-							<th>Renouveler</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for contrat in contrats %}
-						<tr>
-							<td>{{ contrat.devis.client.nom }}</td>
-							<td>{{ contrat.devis.client.societe }}</td>
-							<td>{{ contrat.finPrestation ? contrat.finPrestation | date("d/m/Y") : '' }}</td>
-							{% if contrat.finPrestation | date_modify("-1 month") | date('Y-m-d') < "now"| date('Y-m-d') %}
-								<td><a href="{{ path('invoice_repeatContract', { 'facture': contrat.id }) }}"><i class="fas fa-sync"></i></a></td>
-							{% endif %}
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-	</div>
-	<div class="col-lg-6 col-md-12 mb-3">
-		<div class="card card-default card-table">
-			<div class="card-header">
-				<h2>Facture</h2>
-			</div>
-			<div class="card-body">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Nom</th>
-							<th>Création</th>
-							<th>Acompte</th>
-							<th>Editer</th>
-							<th>Valider</th>
-							<th>Payé</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for facture in factures %}
-						<tr>
-							<td>{{ facture.devis.client.nom }}</td>
-							<td>{{ facture.date|date("d/m/Y") }}</td>
-
-							<td>
-							{% if facture.validation is null %}
-								{% if facture.devis.accompte is null %}
-									<a href="{{ path('invoice_advance', { 'devis': facture.devis.id }) }}"><i class="fas fa-user-plus"></i></a>
-								{% else %}
-									<i class="fas fa-check text-success"></i>
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="card card-default card-table mt-3">
+				<div class="card-header">
+					<h2>Contrats</h2>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Nom</th>
+								<th>Société</th>
+								<th>Date expiration</th>
+								<th>Renouveler</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for contrat in contrats %}
+							<tr>
+								<td>{{ contrat.devis.client.nom }}</td>
+								<td>{{ contrat.devis.client.societe }}</td>
+								<td>{{ contrat.finPrestation ? contrat.finPrestation | date("d/m/Y") : '' }}</td>
+								{% if contrat.finPrestation | date_modify("-1 month") | date('Y-m-d') < "now"| date('Y-m-d') %}
+									<td><a href="{{ path('invoice_repeatContract', { 'facture': contrat.id }) }}"><i class="fas fa-sync"></i></a></td>
 								{% endif %}
-							{% endif %}
-							</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="col-lg-6 col-md-12 mb-3">
+			<div class="card card-default card-table">
+				<div class="card-header">
+					<h2>Facture</h2>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Nom</th>
+								<th>Création</th>
+								<th>Acompte</th>
+								<th>Editer</th>
+								<th>Valider</th>
+								<th>Payé</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for facture in factures %}
+							<tr>
+								<td>{{ facture.devis.client.nom }}</td>
+								<td>{{ facture.date|date("d/m/Y") }}</td>
 
-							<td>
-							{% if facture.validation is null %}
-								<a href="{{ path('invoice', { 'facture':  facture.id }) }}"><i class="fas fa-user-edit"></i></a>
-							{% endif %}
-							</td>
+								<td>
+								{% if facture.validation is null %}
+									{% if facture.devis.accompte is null %}
+										<a href="{{ path('invoice_advance', { 'devis': facture.devis.id }) }}"><i class="fas fa-user-plus"></i></a>
+									{% else %}
+										<i class="fas fa-check text-success"></i>
+									{% endif %}
+								{% endif %}
+								</td>
 
-							<td>
-							{% if facture.validation is null %}
-								<a href="{{ path('invoice_validate', { 'facture': facture.id }) }}"><i class="fas fa-user-check"></i></a>
-							{% else %}
-								{{ facture.validation|date("d/m/Y") }}
-							{% endif %}
-							</td>
+								<td>
+								{% if facture.validation is null %}
+									<a href="{{ path('invoice', { 'facture':  facture.id }) }}"><i class="fas fa-user-edit"></i></a>
+								{% endif %}
+								</td>
 
-							<td>
-							{% if facture.validation  %}
-								<a href="{{ path('invoice_sold', { 'facture': facture.id }) }}"><i class="fas fa-user-check"></i></a>
+								<td>
+								{% if facture.validation is null %}
+									<a href="{{ path('invoice_validate', { 'facture': facture.id }) }}"><i class="fas fa-user-check"></i></a>
+								{% else %}
+									{{ facture.validation|date("d/m/Y") }}
+								{% endif %}
+								</td>
 
-							{% endif %}
-							</td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+								<td>
+								{% if facture.validation  %}
+									<a href="{{ path('invoice_sold', { 'facture': facture.id }) }}"><i class="fas fa-user-check"></i></a>
+
+								{% endif %}
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
+	{% endif %}	
 </div>
 
 {% endblock %}

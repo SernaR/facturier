@@ -53,7 +53,7 @@ class ResearchController extends AbstractController
    }
    
    /**
-    * @Route("/{devis}/findQuotation", name="research_quotation")
+    * @Route("/findQuotation/{devis}", name="research_quotation")
     */
    public function findQuotation(Devis $devis)
    {
@@ -63,7 +63,7 @@ class ResearchController extends AbstractController
    }
 
    /**
-    * @Route("/{facture}/findInvoice", name="research_invoice")
+    * @Route("/findInvoice/{facture}", name="research_invoice")
     */
    public function findInvoice(Facture $facture)
    {
@@ -73,7 +73,7 @@ class ResearchController extends AbstractController
    }
 
    /**
-    * @Route("/{accompte}/findAdvance", name="research_advance")
+    * @Route("/findAdvance/{accompte}", name="research_advance")
     */
    public function findAdvance(Accompte $accompte)
    {
@@ -83,7 +83,7 @@ class ResearchController extends AbstractController
    }
 
    /**
-    * @Route("/{avoir}/findDebit", name="research_debit")
+    * @Route("/findDebit/{avoir}", name="research_debit")
     */
    public function findDebit(Avoir $avoir)
    {

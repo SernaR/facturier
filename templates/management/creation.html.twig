@@ -108,8 +108,12 @@
 						</tr>
 					</tfoot>
 				</table>
-					<a class="btn btn-primary alfSize" href="{{ path('creation_validate',{ 'devis':devis.id }) }}">Créer un devis</a>
-					<a class="btn btn-primary alfSize" href="{{ path('creation_invoice',{ 'devis':devis.id }) }}">Créer une facture</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a class="btn btn-primary alfSize" href="{{ path('creation_validate',{ 'devis':devis.id }) }}">Créer un devis</a>
+						<a class="btn btn-primary alfSize" href="{{ path('creation_invoice',{ 'devis':devis.id }) }}">Créer une facture</a>
+					{% else %}
+						<a class="btn btn-primary btn-block" href="{{ path('creation_validate',{ 'devis':devis.id }) }}">Créer un devis</a>
+					{% endif %}	
 			</div>
 		</div>
 	</div>
