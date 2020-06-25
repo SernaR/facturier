@@ -21,7 +21,7 @@ class AccompteRepository extends ServiceEntityRepository
 
     public function findAdvanceCount(){
         return $this->createQueryBuilder('a')
-            ->select('COUNT(a)')
+            ->select('COUNT(a.numero)')
             ->getQuery()
             ->getSingleScalarResult();
     } 
