@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FactureRepository")
@@ -68,6 +69,7 @@ class Facture
      */
     private $finPrestation;
 
+    private $mensuel = false;
 
     public function __construct()
     {
@@ -215,6 +217,18 @@ class Facture
     public function setFinPrestation(?\DateTimeInterface $finPrestation): self
     {
         $this->finPrestation = $finPrestation;
+
+        return $this;
+    }
+
+    public function getMensuel(): ?bool
+    {
+        return $this->mensuel;
+    }
+
+    public function setMensuel(?bool $mensuel): self
+    {
+        $this->mensuel = $mensuel;
 
         return $this;
     }

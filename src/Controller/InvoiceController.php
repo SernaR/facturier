@@ -93,12 +93,12 @@ class InvoiceController extends AbstractController
     
             if ($form->isSubmitted() && $form->isValid()) {
                 $date = clone $facture->getLivraison();
-                $interval = new \DateInterval('P12M');
-
+                $interval = $facture->getMensuel() ? new \DateInterval('P1M') : new \DateInterval('P12M');
+                
                 $facture->setValidation(new \Datetime());  
                 $facture->setFinPrestation($date->add($interval));
                 $facture->setNumero($utils->getNumber());
-
+               
                 $this->em->persist($facture);
                 $this->em->flush();
                 
