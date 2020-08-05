@@ -86,7 +86,7 @@
 						<thead>
 							<tr>
 								<th>Nom</th>
-								<th>Création</th>
+								<th>Facture</th>
 								<th>Acompte</th>
 								<th>Editer</th>
 								<th>Valider</th>
@@ -97,7 +97,7 @@
 							{% for facture in factures %}
 							<tr>
 								<td>{{ facture.devis.client.nom }}</td>
-								<td>{{ facture.date|date("d/m/Y") }}</td>
+								<td>{{ facture.numero }}</td>
 
 								<td>
 								{% if facture.validation is null %}
