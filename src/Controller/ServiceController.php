@@ -50,12 +50,9 @@ class ServiceController extends AbstractController
             $prestation->setDateDeFin(new \Datetime());
             $this->em->persist($prestation);
             $this->em->flush();
-
-            $newPrestation = new Prestation();
-            return $this->getData($request, $newPrestation);
         }
-        
-        
+        $newPrestation = new Prestation();
+        return $this->getData($request, $newPrestation);  
     }
   
     /**
