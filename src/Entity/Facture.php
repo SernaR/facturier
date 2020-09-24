@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FactureRepository")
@@ -20,27 +20,32 @@ class Facture
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true) invoice
+     * @Groups("invoice")
      */
     private $numero;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("invoice")
      */
     private $date;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Devis")
+     * @Groups("invoice")
      */
     private $devis;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("invoice")
      */
     private $validation = null;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("invoice")
      */
     private $livraison = null;
 
@@ -52,7 +57,7 @@ class Facture
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $acompte;
+    private $acompte; //**obsolete**//
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Avoir", cascade={"persist", "remove"})
@@ -61,6 +66,7 @@ class Facture
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="facture", cascade={"persist", "remove"})
+     * @Groups("invoice")
      */
     private $ligneFacture;
 

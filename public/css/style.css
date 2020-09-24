@@ -59,14 +59,16 @@ table{
 .left{
 	text-align:left;
 }
-
 .grey{
 	background-color:#F8F8F8;
 }
-.orange{
-	 background: #e15e07;
+.orange:hover{
+	 background: #fa6908;
+	 color: #FFF;
 }
-
+.orange{
+	background: #e15e07;
+}
 .icone-orange{
 	 color: #e15e07;
 }

@@ -19,10 +19,12 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    public function findCustomer($nom){
+    public function findCustomers($name){
+        $name = $name==='all' ? '' : $name;
+
         return $this->createQueryBuilder('c')
         ->where('c.nom LIKE :nom')
-        ->setParameter('nom', '%'.$nom.'%')
+        ->setParameter('nom', '%'.$name.'%')
         ->orderBy('c.nom', 'ASC')
         ->getQuery()
         ->getResult();

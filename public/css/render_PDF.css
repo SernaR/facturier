@@ -1,17 +1,19 @@
 body{
-position:relative;
+/*position:relative;
 height:2500px;
 font-family: arial, serif;
 font-size: 24px;
-margin:50px;
+margin:50px;*/
 }
 header a{
 text-decoration: none;
 color:#000;
 }
 table{
-width:100%;
-}
+width:90%;
+margin-left: 5%;
+text-align:left;
+}				
 section{
 /*height: 68%;*/
 margin:20px 0;
@@ -31,7 +33,7 @@ padding:4% 2%;
 th{
 background:#008b8b;
 color:#fff;
-font-size: 24px;
+/*font-size: 24px;*/
 }
 #logo{
 width:50%;
@@ -74,7 +76,7 @@ padding:5px;
 .total-1-mention, .total-5:last-child{
 font-size:0.85em;
 }
-.ref, .qte, .presta, .pu, .montant, .total-5-bord, .total-6-bord{
+.ref, .ref2, .qte, .presta, .pu, .montant, .total-5-bord, .total-6-bord{
 text-align:center;
 }
 .align-right, .total-3{
@@ -92,7 +94,7 @@ width:25%;
 #tva{
 	font-size: 0.8em;
 }
-.ref, .qte, .presta, .pu, .montant{
+.ref2, .qte, .presta, .pu, .montant{
 	vertical-align:top;
 }
 

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block page %}
+	<h1>
+    	Facture n°
+    	{{ accompte.numero }}
+    	-
+    	{{ accompte.devis.client.nom }}
+    	{{ accompte.devis.client.prenom }}
+    </h1>
+{% endblock %}
+
+{% block body %}
+	<div class="col-lg-12 col-md-12 mb-3">
+		<div class="card card-default card-table mt-3">
+		
+			<section>
+				<table id="fact">
+					<thead>
+						<th class="descrp">Description</th>
+						<th class="pu">PU HT</th>
+						<th class="qte">Quantité</th>
+						<th class="montant">Montant HT</th>
+					</thead>
+					<tr>
+						
+						<td class="descrp">Acompte sur devis n°{{ accompte.devis.id }}</td>
+						<td class="pu">{{ accompte.montant|number_format(2, '.', ' ') }} €</td>
+						<td class="qte">1</td>
+						<td class="montant">{{ accompte.Montant|number_format(2, '.', ' ') }} €</td>
+					</tr>
+				</table>
+			</section>
+			<footer>
+
+				<table id="total">
+					
+					<tr>
+						<td class="descrp">
+							Date: {{ accompte.date | date("d/m/Y") }}<br>
+						</td>
+						<td class="pu"></td>
+						<td class="total-5-bord">Total TTC</td>
+						<td class="total-6-bord">{{ accompte.montant|number_format(2, '.', ' ') }} €</td>
+					</tr>
+					<tr>
+						<td rowspan="2" class="total-1-mention"></td>
+						<td class="pu"></td>
+						<td colspan="2" class="total-5" id="tva">{{ accompte.devis.client.zone.texteTva }}</td>
+					</tr>
+					<tr>
+						<td rowspan="2" class="total-1-mention"></td>
+						<td class="total-5">
+							<a href="{{ path('research_customers', { name: accompte.devis.client.nom }) }}" class="btn btn-primary btn-block btn-sm">Retour</a>
+						</td>
+						<td class="total-6"><div id="app" data-advance="{{ json }}"></div></td>
+					</tr>
+				</table>
+			</footer>
+		</div>
+	</div>	
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/render_PDF.css') }}">
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AccompteRepository")
@@ -18,21 +19,25 @@ class Accompte
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("advance")
      */
     private $numero;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"advance", "invoice"})
      */
     private $montant;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("advance")
      */
     private $date;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Devis")
+     *  @Groups("advance")
      */
     private $devis;
 

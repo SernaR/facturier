@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PrestationRepository")
@@ -20,21 +21,25 @@ class Prestation
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("invoice")
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("invoice")
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("invoice")
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("invoice")
      */
     private $montant;
 

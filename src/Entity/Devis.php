@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DevisRepository")
@@ -15,6 +16,7 @@ class Devis
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"advance", "invoice"})
      */
     private $id;
 
@@ -25,6 +27,7 @@ class Devis
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *  @Groups("invoice")
      */
     private $envoi;
 
@@ -40,11 +43,13 @@ class Devis
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="devis")
+     *  @Groups({"advance", "invoice"})
      */
     private $client;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"invoice"})
      */
     private $discount = 0;
 
@@ -55,6 +60,7 @@ class Devis
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Accompte", cascade={"persist", "remove"})
+     * @Groups({"invoice"})
      */
     private $accompte;
 

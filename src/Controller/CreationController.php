@@ -39,7 +39,7 @@ class CreationController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $nom = $form['nom']->getData();
-            $clientFound = $clientRepository->findCustomer($nom);
+            $clientFound = $clientRepository->findCustomers($nom);
             
             return $this->render('management/creation_get_customer.html.twig', array(
                 'clients' => $clientFound,

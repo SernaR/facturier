@@ -67,7 +67,7 @@ class CustomerController extends AbstractController
         
         if($form2->isSubmitted() && $form2->isValid()){
             $nom = $form2['Nom']->getData();
-            $clientFound = $clientRepository->findCustomer($nom);
+            $clientFound = $clientRepository->findCustomers($nom);
             
             return $this->render('user/customer.html.twig', array(
                 'clients' => $clientFound,

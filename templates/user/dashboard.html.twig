@@ -14,7 +14,7 @@
 					<thead>
 						<tr>
 							<th>Nom</th>
-							<th>Création</th>
+							<th>Devis</th>
 							<th>Envoi</th>
 							<th>Annuler</th>
 							{% if is_granted('ROLE_ADMIN') %}
@@ -28,8 +28,7 @@
 						{% for devi in devis %}
 						<tr>
 							<td>{{ devi.client.nom }}</td>
-
-							<td>{{  devi.date|date("d/m/Y") }}</td>
+							<td>{{ devi.id }}</td>
 							<td>{{ devi.envoi| date("d/m/Y")}}</td>
 								<td><a href="{{ path('quotation_cancel', { 'id':  devi.id }) }}"><i class="fas fa-user-minus"></i></a></td>
 							{% if is_granted('ROLE_ADMIN') %}
@@ -74,6 +73,7 @@
 				</div>
 			</div>
 		{% endif %}
+	<div id="app"></div>
 	</div>
 	{% if is_granted('ROLE_ADMIN') %}
 		<div class="col-lg-6 col-md-12 mb-3">
