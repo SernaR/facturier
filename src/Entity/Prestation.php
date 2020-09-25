@@ -21,25 +21,25 @@ class Prestation
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("invoice")
+     * @Groups({"invoice", "quotation", "debit"})
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("invoice")
+     * @Groups({"invoice", "quotation", "debit"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups("invoice")
+     * @Groups({"invoice", "quotation", "debit"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups("invoice")
+     * @Groups({"invoice", "quotation", "debit"})
      */
     private $montant;
 

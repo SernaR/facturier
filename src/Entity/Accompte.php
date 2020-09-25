@@ -25,7 +25,7 @@ class Accompte
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"advance", "invoice"})
+     * @Groups({"advance", "invoice", "debit"})
      */
     private $montant;
 

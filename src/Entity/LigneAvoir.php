@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LigneAvoirRepository")
@@ -18,6 +19,7 @@ class LigneAvoir
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"debit"})
      */
     private $quantite = 1;
 
@@ -28,6 +30,7 @@ class LigneAvoir
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Prestation", inversedBy="ligneAvoir")
+     * @Groups({"debit"})
      */
     private $prestation;
 

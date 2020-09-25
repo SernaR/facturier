@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LigneDevisRepository")
@@ -18,11 +19,13 @@ class LigneDevis
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"quotation"})
      */
     private $quantite = 1;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Prestation", inversedBy="ligneDevis")
+     * @Groups({"quotation"})
      */
     private $prestation;
 

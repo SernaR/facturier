@@ -26,7 +26,7 @@ class ZoneGeographique
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $texteTva;
 

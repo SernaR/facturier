@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Accompte;
+use App\Entity\Avoir;
+use App\Entity\Devis;
+
 use App\Repository\DevisRepository;
 use App\Repository\FactureRepository;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("user")

@@ -21,31 +21,31 @@ class Facture
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true) invoice
-     * @Groups("invoice")
+     * @Groups({"invoice", "debit"})
      */
     private $numero;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("invoice")
+     * @Groups({"invoice", "debit"})
      */
     private $date;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Devis")
-     * @Groups("invoice")
+     * @Groups({"invoice", "debit"})
      */
     private $devis;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("invoice")
+     * @Groups({"invoice", "debit"})
      */
     private $validation = null;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups("invoice")
+     * @Groups({"invoice"})
      */
     private $livraison = null;
 
@@ -66,7 +66,7 @@ class Facture
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="facture", cascade={"persist", "remove"})
-     * @Groups("invoice")
+     * @Groups({"invoice"})
      */
     private $ligneFacture;
 

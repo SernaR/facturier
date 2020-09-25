@@ -41,9 +41,9 @@
 				<table id="total">
 					<tr>
 						<td colspan="2" class="total-1" id="rglmt">
-							Livraison de la prestation:
+							Livraison de la prestation: {{ facture.livraison | date("d/m/Y") }}
 						</td>
-						<td class="total-2">{{ facture.livraison | date("d/m/Y") }}</td>
+						<td class="total-2"></td>
 						<td class="total-4"></td>
 						<td class="total-5-bord">Total HT</td>
 						<td class="total-6-bord">{{ somme|number_format(2, '.', ' ') }} €</td>

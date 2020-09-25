@@ -16,7 +16,7 @@ class Devis
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"advance", "invoice"})
+     * @Groups({"advance", "invoice", "quotation"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class Devis
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     *  @Groups("invoice")
+     *  @Groups({"invoice", "quotation"})
      */
     private $envoi;
 
@@ -43,24 +43,25 @@ class Devis
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="devis")
-     *  @Groups({"advance", "invoice"})
+     *  @Groups({"advance", "invoice", "quotation", "debit"})
      */
     private $client;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"invoice"})
+     * @Groups({"invoice", "quotation", "debit"})
      */
     private $discount = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\LigneDevis", mappedBy="devis", cascade={"persist", "remove"})
+     * @Groups({"quotation"})
      */
     private $ligneDevis;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Accompte", cascade={"persist", "remove"})
-     * @Groups({"invoice"})
+     * @Groups({"invoice", "debit"})
      */
     private $accompte;
 

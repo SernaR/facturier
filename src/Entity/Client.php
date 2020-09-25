@@ -16,55 +16,55 @@ class Client
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice"})
+     * @Groups({"advance", "invoice", "quotation", "debit"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $societe;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $tvaIntracommunautaire;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique", inversedBy="client")
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $zone;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice"}) 
+     * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
     private $mail;
 
