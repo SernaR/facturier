@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
     Page,
     Text,
@@ -186,7 +187,7 @@ export default function InvoiceDocument({ avoir }) {
         )} fixed />
       </Page>
       <Page style={styles.body} wrap>
-        <Text>visuelle du site (page accueil) + 3 allers-retour éventuels - Correction des autres pages en live si besoin - Personnalisa-tion du site aux couleurs de l'entreprise - Restructuration du site si besoin (pages et contenus) - Mentions légales / RGPD - Installation plugins de sécurité/sauvegarde - Référencement de base pour les moteurs de recherche - OFFERT: 1h de prise en main avec le client + notice d’utilisation Non compris: - Les pages ou modifications supplémentaires - Le nouveau contenu du site (textes, images, mots clés) - La ma</Text>
+        <Text>cgv...</Text>
         <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
           `${pageNumber} / ${totalPages}`
         )} fixed />

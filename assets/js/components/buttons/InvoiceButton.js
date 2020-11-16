@@ -2,7 +2,7 @@ import React from 'react';
 import reactDOM from 'react-dom'
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfDocument from "./InvoiceDocument";
+import PdfDocument from "../documents/InvoiceDocument";
 
 const InvoiceButton = ({ invoice }) => {
     return ( 

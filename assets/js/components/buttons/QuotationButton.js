@@ -2,7 +2,7 @@ import React from 'react';
 import reactDOM from 'react-dom'
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfDocument from "./QuotationDocument";
+import PdfDocument from "../documents/QuotationDocument";
 
 const QuotationButton = ({ quotation }) => {
     return ( 

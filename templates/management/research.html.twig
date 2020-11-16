@@ -8,7 +8,7 @@
 <div class="row mt-3">
 	{% if form is defined %}
 	<div class="container col-lg-6 col-md-12 mb-3">
-		<div class="card card-default card-table">
+		<div class="card card-default card-table shadow">
 			<div class="card-body">
 				{{ form_start(form) }}
 				{{ form_widget(form) }}
@@ -21,7 +21,7 @@
 
 	<div class="col-sm-12">
 		{% for client in clients %}
-		<div class="card card-default card-table mb-3">
+		<div class="card card-default card-table mb-3 shadow">
 			<div class="card-header">
 				<h2>{{ client.nom }} {{ client.prenom }}</h2>
 			</div>
