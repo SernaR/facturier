@@ -48,7 +48,7 @@ class Client
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"advance", "invoice", "quotation", "debit"}) 
      */
-    private $tvaIntracommunautaire;
+    private $tvaIntracommunautaire = "-";
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique", inversedBy="client")
