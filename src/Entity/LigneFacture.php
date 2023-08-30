@@ -5,34 +5,27 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\LigneFactureRepository")
- */
+
+#[ORM\Entity(repositoryClass: LigneFactureRepository::class)]
 class LigneFacture
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"invoice"})
-     */
-    private $quantite = 1;
+    #[ORM\Column]
+    private ?int $quantite = 1;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Prestation", inversedBy="ligneFacture")
-     * @Groups({"invoice"})
-     */
-    private $prestation;
+    #[ORM\ManyToOne(targetEntity: Prestation::class, inversedBy: 'ligneFacture')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Prestation $prestation = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Facture", inversedBy="ligneFacture")
-     */
-    private $facture;
+    #[ORM\ManyToOne(targetEntity: Facture::class, inversedBy: 'ligneFacture')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Facture $facture = null;
+
+    //** Methods **//
 
     public function getId(): ?int
     {

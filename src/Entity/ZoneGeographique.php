@@ -5,35 +5,26 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ZoneGeographiqueRepository")
- */
+
+#[ORM\Entity(repositoryClass: ZoneGeographiqueRepository::class)]
 class ZoneGeographique
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $zone;
+    #[ORM\Column(length: 255)]
+    private ?string $zone = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $texteTva;
+    #[ORM\Column(length: 255)]
+    private ?string $texteTva = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="zone")
-     */
-    private $client;
+    #[ORM\OneToMany(mappedBy: 'zone', targetEntity: Client::class)]
+    private Collection $client;
+
+    //** Methods **//
 
     public function __construct()
     {

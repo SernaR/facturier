@@ -3,36 +3,28 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\LigneDevisRepository")
- */
+
+#[ORM\Entity(repositoryClass: LigneDevisRepository::class)]
 class LigneDevis
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"quotation"})
-     */
-    private $quantite = 1;
+    #[ORM\Column]
+    private ?int $quantite = 1;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Prestation", inversedBy="ligneDevis")
-     * @Groups({"quotation"})
-     */
-    private $prestation;
+    #[ORM\ManyToOne(targetEntity: Prestation::class, inversedBy: 'ligneDevis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Prestation $prestation = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Devis", inversedBy="ligneDevis")
-     */
-    private $devis;
+    #[ORM\ManyToOne(targetEntity: Devis::class, inversedBy: 'ligneDevis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Devis $devis = null;
+
+    //** Methods **//
 
     public function getId(): ?int
     {

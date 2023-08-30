@@ -2,76 +2,48 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
- */
+#[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice", "quotation", "debit"})
-     */
-    private $nom;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $prenom;
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $adresse;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $adresse = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $societe;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $societe = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $tvaIntracommunautaire = "-";
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $tvaIntracommunautaire = "-";
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique", inversedBy="client")
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $zone;
+    #[ORM\ManyToOne(targetEntity: ZoneGeographique::class, inversedBy: 'client')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Zone $zone = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $telephone;
+    #[ORM\Column(length: 255)]
+    private ?string $telephone = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"advance", "invoice", "quotation", "debit"}) 
-     */
-    private $mail;
+    #[ORM\Column(length: 255)]
+    private ?string $mail = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Devis", mappedBy="client")
-     */
-    private $devis;
+    #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'client')]
+    private ?Devis $devis = null;
+
+    //** Methods **//
 
     public function __construct()
     {

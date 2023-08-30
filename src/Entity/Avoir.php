@@ -2,46 +2,32 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\AvoirRepository")
- */
+#[ORM\Entity(repositoryClass: AvoirRepository::class)]
 class Avoir
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"debit"})
-     */
-    private $numero;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"debit"})
-     */
-    private $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Facture")
-     * @Groups({"debit"})
-     */
-    private $facture;
+    #[ORM\OneToOne(targetEntity: Facture::class)]
+    private ?Facture $facture = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneAvoir", mappedBy="avoir", cascade={"persist", "remove"})
-     * @Groups({"debit"})
-     */
-    private $ligneAvoir;
+    #[ORM\OneToMany(mappedBy: 'avoir', targetEntity: LigneAvoir::class)]
+    private Collection $ligneAvoir;
+
+    //** Methods **//
 
     public function __construct()
     {

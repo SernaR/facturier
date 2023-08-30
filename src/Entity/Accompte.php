@@ -2,44 +2,31 @@
 
 namespace App\Entity;
 
+use App\Repository\AccompteRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\AccompteRepository")
- */
+#[ORM\Entity(repositoryClass: AccompteRepository::class)]
 class Accompte
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups("advance")
-     */
-    private $numero;
+    #[ORM\Column(length: 255)]
+    private ?string $numero = null;
 
-    /**
-     * @ORM\Column(type="float")
-     * @Groups({"advance", "invoice", "debit"})
-     */
-    private $montant;
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $montant= null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups("advance")
-     */
-    private $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Devis")
-     *  @Groups("advance")
-     */
-    private $devis;
+    #[ORM\OneToOne(targetEntity: Devis::class)]
+    private ?Devis $devis = null;
+
+    //** Methods **//
 
     public function getId(): ?int
     {

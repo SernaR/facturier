@@ -2,71 +2,49 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\PrestationRepository")
- */
+
+#[ORM\Entity(repositoryClass: PrestationRepository::class)]
 class Prestation
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"invoice", "quotation", "debit"})
-     */
-    private $code;
+    #[ORM\Column(length: 255)]
+    private ?string $code = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"invoice", "quotation", "debit"})
-     */
-    private $libelle;
+    #[ORM\Column(length: 255)]
+    private ?string $libelle = null;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Groups({"invoice", "quotation", "debit"})
-     */
-    private $description;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="float")
-     * @Groups({"invoice", "quotation", "debit"})
-     */
-    private $montant;
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $montant= null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeDeService", inversedBy="prestations")
-     */
-    private $type;
+    #[ORM\ManyToOne(targetEntity: TypeDeService::class, inversedBy: 'prestations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TypeDeService $type = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateDeFin;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateDeFin = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneDevis", mappedBy="prestation")
-     */
-    private $ligneDevis;
+    #[ORM\OneToMany(mappedBy: 'prestation', targetEntity: LigneDevis::class)]
+    private Collection $ligneDevis;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="prestation", cascade={"persist"})
-     */
-    private $ligneFacture;
+    #[ORM\OneToMany(mappedBy: 'prestation', targetEntity: LigneFacture::class)]
+    private Collection $ligneFacture;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneAvoir", mappedBy="prestation")
-     */
-    private $ligneAvoir;
+    #[ORM\OneToMany(mappedBy: 'prestation', targetEntity: LigneAvoir::class)]
+    private Collection $ligneAvoir;
+
+    //** Methods **//
 
     public function __construct()
     {

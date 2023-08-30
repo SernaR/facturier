@@ -2,73 +2,49 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\DevisRepository")
- */
+
+#[ORM\Entity(repositoryClass: DevisRepository::class)]
 class Devis
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     * @Groups({"advance", "invoice", "quotation"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *  @Groups({"invoice", "quotation"})
-     */
-    private $envoi;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $envoi = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $annulation;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $annulation = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $validation;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $validation = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="devis")
-     *  @Groups({"advance", "invoice", "quotation", "debit"})
-     */
-    private $client;
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'devis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $client = null;
 
-    /**
-     * @ORM\Column(type="float")
-     * @Groups({"invoice", "quotation", "debit"})
-     */
-    private $discount = 0;
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $discount = 0;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneDevis", mappedBy="devis", cascade={"persist", "remove"})
-     * @Groups({"quotation"})
-     */
-    private $ligneDevis;
+    #[ORM\OneToMany(mappedBy: 'devis', targetEntity: LigneDevis::class)]
+    private Collection $ligneDevis;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Accompte", cascade={"persist", "remove"})
-     * @Groups({"invoice", "debit"})
-     */
-    private $accompte;
+    #[ORM\OneToOne(targetEntity: Accompte::class)]
+    private ?Accompte $accompte = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Facture", cascade={"persist", "remove"})
-     */
-    private $facture;
+    #[ORM\OneToOne(targetEntity: Facture::class)]
+    private ?Facture $facture = null;
+
+    //** Methods **//
 
     public function __construct()
     {

@@ -2,53 +2,35 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(
- *  fields= {"email"},
- *  message= "L'email que vous avez indiqué est déjà utilisé !"
- * )
- */
-class User implements UserInterface
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private ?string $username = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
+     * @var string The hashed password
      */
-    private $email;
+    #[ORM\Column]
+    private ?string $password = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire au minimum 8 caractères")
-     */
-    private $password;
-
-    /**
-     * @Assert\EqualTo(propertyPath="password", message="vous n\'avez pas tapé le même mot de passe")
-     */
-    public $confirm_password;
-
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private $roles = [];
+
+    //** Methods **//
 
     public function getId(): ?int
     {
@@ -99,10 +81,21 @@ class User implements UserInterface
 
     }
 
-    public function getRoles(){
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
+    }
+
+    public function getRoles(): array
+    {
         $roles = $this->roles;
         $roles[] = 'ROLE_USER';
-    
+
         return array_unique($roles);
     }
 

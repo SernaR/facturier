@@ -1,0 +1,43 @@
+** Dépéndance:
+ - symfony-docker
+https://github.com/dunglas/symfony-docker
+docker-compose up --build
+
+
+composer require symfony/maker-bundle --dev
+composer require symfony/twig-bundle
+...
+ou
+composer require webapp
+
+ - easy admin:
+composer require easycorp/easyadmin-bundle
+
+ - webpack encore
+composer require symfony/webpack-encore-bundle
+npm install
+npm run dev
+nb, check l'endpoint dans le webpack.config: .addEntry('app', './assets/js/app.js')
+
+ - bootstrap
+npm install bootstrap
+.enableSassLoader() dans webpack config
+npm install sass-loader@^13.0.0 sass --save-dev
+
+ - easy admin
+php bin/console make:admin:dashboard
+php bin/console make:admin:crud
+
+** Tips
+ - entrer dans le container:
+docker ps - liste les container
+docker exec -it symfony-docker-php-1 bash (ne fonctionne pas ici)
+
+ - controller
+php bin/console make:controller Home
+
+ - user
+php bin/console make:user
+
+
+

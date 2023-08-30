@@ -4,78 +4,51 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\FactureRepository")
- */
+
+#[ORM\Entity(repositoryClass: FactureRepository::class)]
 class Facture
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true) invoice
-     * @Groups({"invoice", "debit"})
-     */
-    private $numero;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"invoice", "debit"})
-     */
-    private $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Devis")
-     * @Groups({"invoice", "debit"})
-     */
-    private $devis;
+    #[ORM\OneToOne(targetEntity: Devis::class)]
+    private ?Devis $devis = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"invoice", "debit"})
-     */
-    private $validation = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $validation = null;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     * @Groups({"invoice"})
-     */
-    private $livraison = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $livraison = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $payee = false;
+    #[ORM\Column]
+    private ?bool $payee = false;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $acompte; //**obsolete**//
+    //private $acompte; //**obsolete**//
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Avoir", cascade={"persist", "remove"})
-     */
-    private $avoir;
+    #[ORM\OneToOne(targetEntity: Avoir::class)]
+    private ?Avoir $avoir = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="facture", cascade={"persist", "remove"})
-     * @Groups({"invoice"})
-     */
-    private $ligneFacture;
+    #[ORM\OneToMany(mappedBy: 'facture', targetEntity: LigneFacture::class)]
+    private Collection $ligneFacture;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $finPrestation;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $finPrestation = null;
 
-    private $mensuel = false;
+    #[ORM\Column]
+    private ?bool $mensuel = false;
+
+    //** Methods **//
 
     public function __construct()
     {
@@ -159,17 +132,17 @@ class Facture
         return $this;
     }
 
-    public function getAcompte(): ?float
-    {
-        return $this->acompte;
-    }
-
-    public function setAcompte(?float $acompte): self
-    {
-        $this->acompte = $acompte;
-
-        return $this;
-    }
+//    public function getAcompte(): ?float
+//    {
+//        return $this->acompte;
+//    }
+//
+//    public function setAcompte(?float $acompte): self
+//    {
+//        $this->acompte = $acompte;
+//
+//        return $this;
+//    }
 
     public function getAvoir(): ?Avoir
     {
@@ -239,4 +212,4 @@ class Facture
         return $this;
     }
 
-}    
+}

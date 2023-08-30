@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8" />
         <title>{% block title %}facturier{% endblock %}</title>
-    
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-         {{ encore_entry_link_tags('app') }}
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
 
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -63,11 +64,5 @@
         <div class="container-fluid">
             {% block body %}{% endblock %}
         </div>
-
-        {% block javascripts %}
-            <script src="{{ asset('js/jquery.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.js') }}"></script>
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
     </body>
 </html>

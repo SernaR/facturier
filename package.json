@@ -1,23 +1,28 @@
 {
     "devDependencies": {
-        "@babel/preset-react": "^7.0.0",
-        "@symfony/webpack-encore": "^0.30.0",
-        "core-js": "^3.0.0",
-        "regenerator-runtime": "^0.13.2",
-        "webpack-notifier": "^1.6.0"
+        "@babel/core": "^7.17.0",
+        "@babel/preset-env": "^7.16.0",
+        "@babel/preset-react": "^7.22.5",
+        "@symfony/webpack-encore": "^4.0.0",
+        "core-js": "^3.23.0",
+        "regenerator-runtime": "^0.13.9",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-notifier": "^1.15.0"
     },
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "dev-server": "encore dev-server --port 8080",
+        "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@react-pdf/renderer": "^1.6.11",
-        "moment": "^2.28.0",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1"
+        "@react-pdf/renderer": "^3.1.12",
+        "bootstrap": "^5.3.1",
+        "moment": "^2.29.4",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     }
 }

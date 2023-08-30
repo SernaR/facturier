@@ -6,27 +6,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\TypeDeServiceRepository")
- */
+
+#[ORM\Entity(repositoryClass: TypeDeServiceRepository::class)]
 class TypeDeService
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Prestation", mappedBy="type")
-     */
-    private $prestations;
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Prestation::class)]
+    private Collection $prestations;
+
+    //** Methods **//
 
     public function __construct()
     {
