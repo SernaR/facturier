@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Avoir;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Avoir|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,39 +19,11 @@ class AvoirRepository extends ServiceEntityRepository
         parent::__construct($registry, Avoir::class);
     }
 
-    public function findDebitCount(){
+    public function findDebitCount(): int
+    {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a.numero)')
             ->getQuery()
             ->getSingleScalarResult();
-    }   
-
-    // /**
-    //  * @return Avoir[] Returns an array of Avoir objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Avoir
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\LigneAvoir;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method LigneAvoir|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,33 +18,4 @@ class LigneAvoirRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, LigneAvoir::class);
     }
-
-    // /**
-    //  * @return LigneAvoir[] Returns an array of LigneAvoir objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?LigneAvoir
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

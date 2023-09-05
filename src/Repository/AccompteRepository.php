@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Accompte;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Accompte|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,39 +19,11 @@ class AccompteRepository extends ServiceEntityRepository
         parent::__construct($registry, Accompte::class);
     }
 
-    public function findAdvanceCount(){
+    public function findAdvanceCount(): int
+    {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a.numero)')
             ->getQuery()
             ->getSingleScalarResult();
-    } 
-
-    // /**
-    //  * @return Accompte[] Returns an array of Accompte objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Accompte
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

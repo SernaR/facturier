@@ -45,7 +45,6 @@ class Facture
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finPrestation = null;
 
-    #[ORM\Column]
     private ?bool $mensuel = false;
 
     //** Methods **//

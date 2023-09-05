@@ -1,4 +1,4 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block page %}
 	<h1>Prestations</h1>
 {% endblock %}
@@ -36,7 +36,7 @@
 				{{ form_widget(form) }}
 				<button type="submit"
 					class="btn btn-primary mt-2 alfSize">Créer</button>
-				<a href="{{ path('service') }}" class="btn btn-primary mt-2 alfSize">Annuler</a>	
+				<a href="{{ path('service') }}" class="btn btn-primary mt-2 alfSize">Annuler</a>
 				{{ form_end(form) }}
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 					<thead>
 						<tr>
 							<th>Code</th>
-							<th>Libelle</th>					
+							<th>Libelle</th>
 							<th>Montant</th>
 							<th>Modf</th>
 							<th>Dupl</th>
@@ -77,8 +77,8 @@
 								href="{{ path('service_edit', { 'id': prestation.id }) }}"><i
 									class="fas fa-edit"></i></a></td>
 							<td><a
-								href="{{ path('service_duplicate', { 'id': prestation.id }) }}"><i 
-								class="far fa-clone"></i></a></td>		
+								href="{{ path('service_duplicate', { 'id': prestation.id }) }}"><i
+								class="far fa-clone"></i></a></td>
 							<td><i id="{{ path('service_delete', { 'id': prestation.id }) }}" class="fas fa-times-circle icone-rouge js-toggle"></i></td>
 						</tr>
 						{% endfor %}

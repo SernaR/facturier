@@ -4,23 +4,49 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
        
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        main:
+            lazy: true
+#            custom_authenticator: App\Security\AppAuthenticator
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-    
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+#        - { path: ^/inscription, roles: ROLE_ADMIN }
+#        - { path: ^/service, roles: ROLE_ADMIN }
+#        - { path: ^/debit, roles: ROLE_ADMIN }
+#        - { path: ^/research/findQuotation, roles: ROLE_USER }
+#        - { path: ^/research, roles: ROLE_ADMIN }
+#        - { path: ^/creation/invoice, roles: ROLE_ADMIN }
+#        - { path: ^/quotation/cancel, roles: ROLE_USER }
+#        - { path: ^/quotation, roles: ROLE_ADMIN }
+#        - { path: ^/invoice, roles: ROLE_ADMIN }
+#        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:

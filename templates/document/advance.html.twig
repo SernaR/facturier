@@ -1,4 +1,4 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block page %}
 	<h1>
@@ -22,7 +22,7 @@
 						<th class="montant">Montant HT</th>
 					</thead>
 					<tr>
-						
+
 						<td class="descrp">Acompte sur devis n°{{ accompte.devis.id }}</td>
 						<td class="pu">{{ accompte.montant|number_format(2, '.', ' ') }} €</td>
 						<td class="qte">1</td>
@@ -33,7 +33,7 @@
 			<footer>
 
 				<table id="total">
-					
+
 					<tr>
 						<td class="descrp">
 							Date: {{ accompte.date | date("d/m/Y") }}<br>
@@ -57,7 +57,7 @@
 				</table>
 			</footer>
 		</div>
-	</div>	
+	</div>
 {% endblock %}
 
 {% block stylesheets %}

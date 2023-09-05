@@ -1,4 +1,4 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block page %}
 	<h1>
@@ -73,7 +73,7 @@
 							{% set acompte = 0 %}
 							{% if facture.devis and facture.devis.accompte %}
 								{% set acompte = facture.devis.accompte.montant %}
-							{% elseif facture.acompte %}	
+							{% elseif facture.acompte %}
 								{% set acompte = facture.acompte %}
 							{% endif %}
 						<td class="total-6-bord">{{ acompte|number_format(2, '.', ' ') }} €</td>
@@ -98,10 +98,10 @@
 						</td>
 						<td class="total-6"><div id="react_invoice_btn" data-invoice="{{ json }}"></div></td>
 					</tr>
-				</table>	
+				</table>
 			</footer>
 		</div>
-	</div>	
+	</div>
 {% endblock %}
 
 {% block stylesheets %}

@@ -1,4 +1,4 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block page %}
 	<h1>Tableau de bord</h1>
 {% endblock %}
@@ -19,9 +19,9 @@
 							<th>Annuler</th>
 							{% if is_granted('ROLE_ADMIN') %}
 								<th>Valider</th>
-							{% else %}	
+							{% else %}
 								<th>Visualiser</th>
-							{% endif %}	
+							{% endif %}
 						</tr>
 					</thead>
 					<tbody>
@@ -33,9 +33,9 @@
 								<td><a href="{{ path('quotation_cancel', { 'id':  devi.id }) }}"><i class="fas fa-user-minus"></i></a></td>
 							{% if is_granted('ROLE_ADMIN') %}
 								<td><a href="{{ path('quotation_validate', { 'id': devi.id }) }}"><i class="fas fa-user-check"></i></a></td>
-							{% else %}	
-								<td><a href="{{ path('research_quotation', { 'devis': devi.id }) }}"><i class="fas fa-eye"></i></a></td>			
-							{% endif %}	
+							{% else %}
+								<td><a href="{{ path('research_quotation', { 'devis': devi.id }) }}"><i class="fas fa-eye"></i></a></td>
+							{% endif %}
 						</tr>
 						{% endfor %}
 					</tbody>
@@ -136,7 +136,7 @@
 				</div>
 			</div>
 		</div>
-	{% endif %}	
+	{% endif %}
 </div>
 
 {% endblock %}

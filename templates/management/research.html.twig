@@ -1,4 +1,4 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block page %}
 	<h1>liste des PDF</h1>
 {% endblock %}
@@ -25,7 +25,7 @@
 			<div class="card-header">
 				<h2>{{ client.nom }} {{ client.prenom }}</h2>
 			</div>
-			<div class="card-body">	
+			<div class="card-body">
 				<div class="row">
 					<div class="list-group col-sm ml-3">
 						{% for devi in client.devis %}
@@ -39,12 +39,12 @@
 										<p class="mb-1">{{ devi.envoi|date("d/m/Y") }}</p>
 										<small>&nbsp;</small>
 									</div>
-								{% else %}	
+								{% else %}
 									<a href="{{ path('research_quotation', { 'devis':  devi.id }) }}" class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">Devis n° {{ devi.id }}</h5>
 											<small>
-												{% if(devi.validation) %}	
+												{% if(devi.validation) %}
 													Validé
 												{% else %}
 													En cours
@@ -54,8 +54,8 @@
 										<p class="mb-1">{{ devi.envoi|date("d/m/Y") }}</p>
 										<small>&nbsp;</small>
 									</a>
-								{% endif %}	
-							{% endif %}		
+								{% endif %}
+							{% endif %}
 						{% endfor %}
 					</div>
 					<div class="list-group col-sm ml-3">
@@ -83,17 +83,17 @@
 											Réglée
 										{% else %}
 											En cours
-										{% endif %}	
+										{% endif %}
 									</small>
 									</div>
 									<p class="mb-1">{{  devi.facture.validation|date("d/m/Y") }}</p>
 									{% if devi.envoi %}
 										<small>Selon devis n° {{ devi.id }}</small>
 									{% else %}
-										<small>&nbsp;</small>	
+										<small>&nbsp;</small>
 									{% endif %}
 								</a>
-							{% endif %}	
+							{% endif %}
 						{% endfor %}
 					</div>
 					<div class="list-group col-sm ml-3">
@@ -107,13 +107,13 @@
 									<p class="mb-1">{{ devi.facture.avoir.date |date("d/m/Y") }}</p>
 									<small>Selon facture n° {{ devi.facture.numero }}</small>
 								</a>
-							{% endif %}	
+							{% endif %}
 						{% endfor %}
 					</div>
-				</div>			
+				</div>
 			</div>
 		</div>
-		{% endfor %}	
+		{% endfor %}
 	</div>
 </div>
 
